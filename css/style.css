@@ -291,9 +291,13 @@ p {
     left: 1600px;
 }
 
-.slide-l-r-Out {
+/* .slide-l-r-Out {
     -webkit-animation: slide-l-r-Out 40s;
     animation: slide-l-r-Out 40s;
+} */
+.slide-l-r-Out {
+    -webkit-animation: slide-l-r-Out 4s;
+    animation: slide-l-r-Out 4s;
 }
 
 @-webkit-keyframes slide-l-r-Out {

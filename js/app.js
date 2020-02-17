@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // tetrisAudio.src = "/sounds/TEtris sound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
-  movementAudio.src = "/sounds/action.wav";
+  // movementAudio.src = "/sounds/action.wav";
 
   let points = 0;
   let lines = 0;
@@ -31,20 +31,35 @@ document.addEventListener("DOMContentLoaded", () => {
     bringInGame();
   });
 
+  // const bringInGame = () => {
+  //   setTimeout(() => {
+  //     mainElement.classList.remove("hidden");
+  //     setTimeout(() => {
+  //       gameDisplay.classList.add("fadeIn");
+  //     }, 1000);
+  //     tetrisCountDown();
+  //   }, 16000);
+  // };
+
+  // const tetrisCountDown = () => {
+  //   setTimeout(() => {
+  //     gameloop();
+  //   }, 6000);
+  // };
   const bringInGame = () => {
     setTimeout(() => {
       mainElement.classList.remove("hidden");
       setTimeout(() => {
         gameDisplay.classList.add("fadeIn");
-      }, 1000);
+      }, 1);
       tetrisCountDown();
-    }, 16000);
+    }, 1);
   };
 
   const tetrisCountDown = () => {
     setTimeout(() => {
       gameloop();
-    }, 6000);
+    }, 1);
   };
 
   const height = 20;
@@ -239,24 +254,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // console.log("toppp check", squares[0]);
 
-  //   function gameOverCheck() {
-  //     if (squares.slice(0, 20).some(elem => elem.contains("freeze"))) {
+    function gameOverCheck() {
+      let topRow = squares.slice(0, 20)
+      if (topRow.some(elem => elem.classList.contains("freeze") === true)) {
+        console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
+        // gameoverAscii.classList.remove('hidden')
+        alert("Game over");
+      } else console.log("no")
+    }
+
+  // function gameOverCheck() {
+  //   //loops throgh top row if 'freeze' class spotted aleart user gameover
+  //   for (let i = 0; i < 20; i++) {
+  //     if (squares[i].classList.contains("freeze") === true) {
   //       console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
   //       // gameoverAscii.classList.remove('hidden')
   //       alert("Game over");
   //     }
   //   }
-
-  function gameOverCheck() {
-    //loops throgh top row if 'freeze' class spotted aleart user gameover
-    for (let i = 0; i < 20; i++) {
-      if (squares[i].classList.contains("freeze") === true) {
-        console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
-        // gameoverAscii.classList.remove('hidden')
-        alert("Game over");
-      }
-    }
-  }
+  // }
 
   document.addEventListener("keydown", e => {
     // let kCode = e.keyCode
@@ -355,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     position += width;
-    console.log("check", squares.slice(0, 20));
+    // console.log("check", squares.slice(0, 20));
     generate();
     stopTetrimino();
   };
