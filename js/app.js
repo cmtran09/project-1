@@ -17,6 +17,31 @@ document.addEventListener("DOMContentLoaded", () => {
   let points = 0;
   let lines = 0;
 
+  document.addEventListener("keydown", e => {
+    // let kCode = e.keyCode
+    if (e.keyCode === 37) {
+      console.log("moveLeft");
+      moveLeft();
+      movementAudio.play();
+    } else if (e.keyCode === 39) {
+      console.log("moveRight");
+      moveRight();
+      movementAudio.play();
+    } else if (e.keyCode === 40) {
+      console.log("moveDown");
+      moveDown();
+      movementAudio.play();
+    } else if (e.keyCode === 32) {
+      console.log("instantDown");
+      hardDrop();
+      movementAudio.play();
+    } else if (e.keyCode === 38) {
+      console.log("rotate90");
+      rotate90();
+      movementAudio.play();
+    }
+  });
+
   startYesBtn.addEventListener("click", () => {
     // welcomeCow.classList.add("colorChange");
     welcomeCow.classList.remove("slide-in-right");
@@ -96,273 +121,222 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log(squares);
 
   //THE TETROMINO BLOCKS EACH WITH 90Ddeg ROTATION AND THEIR OWN COLOUR
-  const iTetrimino = {
-    matrix: [
-      [1, width + 1, 2 * width + 1, 3 * width + 1],
-      [width, width + 1, width + 2, width + 3],
-      [1, width + 1, 2 * width + 1, 3 * width + 1],
-      [width, width + 1, width + 2, width + 3]
-    ],
-    color: "cyan"
-  };
-  const jTetrimino = {
-    matrix: [
-      [2, width + 2, 2 * width + 1, 2 * width + 2],
-      [width, 2 * width, 2 * width + 1, 2 * width + 2],
-      [0, 1, width, width * 2],
-      [0, 1, 2, width + 2]
-    ],
-    color: "blue"
-  };
-  const lTetrimino = {
-    matrix: [
-      [1, width + 1, 2 * width + 1, 2],
-      [width, width + 1, width + 2, 2 * width + 2],
-      [1, width + 1, 2 * width + 1, 2 * width],
-      [width, 2 * width, 2 * width + 1, 2 * width + 2]
-    ],
-    color: "orange"
-  };
-  const sTetrimino = {
-    matrix: [
-      [1, 2, width, width + 1],
-      [1, width + 1, width + 2, 2 * width + 2],
-      [width + 1, width + 2, 2 * width, 2 * width + 1],
-      [0, width, width + 1, 2 * width + 1]
-    ],
-    color: "green"
-  };
-  const zTetrimino = {
-    matrix: [
-      [0, 1, width + 1, width + 2],
-      [2, width + 1, width + 2, 2 * width + 1],
-      [width, width + 1, 2 * width + 1, 2 * width + 2],
-      [0, width, width + 1, 2 * width + 1]
-    ],
-    color: "red"
-  };
-  const tTetrimino = {
-    matrix: [
-      [1, width, width + 1, width + 2],
-      [1, width + 1, width + 2, 2 * width + 1],
-      [width, width + 1, width + 2, 2 * width + 1],
-      [1, width, width + 1, 2 * width + 1]
-    ],
-    color: "purple"
-  };
+  const iTetrimino = [
+    [1, width + 1, 2 * width + 1, 3 * width + 1],
+    [width, width + 1, width + 2, width + 3],
+    [1, width + 1, 2 * width + 1, 3 * width + 1],
+    [width, width + 1, width + 2, width + 3],
+    ["cyan"]
+  ];
 
-  const oTetrimino = {
-    matrix: [
-      [0, 1, width, width + 1],
-      [0, 1, width, width + 1],
-      [0, 1, width, width + 1],
-      [0, 1, width, width + 1]
-    ],
-    color: "yellow"
-  };
+  const jTetrimino = [
+    [2, width + 2, 2 * width + 1, 2 * width + 2],
+    [width, 2 * width, 2 * width + 1, 2 * width + 2],
+    [0, 1, width, width * 2],
+    [0, 1, 2, width + 2],
+    ["blue"]
+  ];
+
+  const lTetrimino = [
+    [1, width + 1, 2 * width + 1, 2 * width + 2],
+    [1, 2, 3, width + 1],
+    [2, 3, width + 3, 2 * width + 3],
+    [2 * width + 1, 2 * width + 2, 2 * width + 3, width + 3],
+    ["orange"]
+  ];
+
+  const sTetrimino = [
+    [1, 2, width, width + 1],
+    [1, width + 1, width + 2, 2 * width + 2],
+    [width + 1, width + 2, 2 * width, 2 * width + 1],
+    [0, width, width + 1, 2 * width + 1],
+    ["green"]
+  ];
+
+  const zTetrimino = [
+    [0, 1, width + 1, width + 2],
+    [2, width + 1, width + 2, 2 * width + 1],
+    [width, width + 1, 2 * width + 1, 2 * width + 2],
+    [0, width, width + 1, 2 * width + 1],
+    ["red"]
+  ];
+
+  const tTetrimino = [
+    [1, width, width + 1, width + 2],
+    [1, width + 1, width + 2, 2 * width + 1],
+    [width, width + 1, width + 2, 2 * width + 1],
+    [1, width, width + 1, 2 * width + 1],
+    ["purple"]
+  ];
+
+  const oTetrimino = [
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    [0, 1, width, width + 1],
+    ["yellow"]
+  ];
 
   // Array containing all tetrominos
   const tetriminosArray = [
-    [iTetrimino],
-    [jTetrimino],
-    [lTetrimino],
-    [sTetrimino],
-    [zTetrimino],
-    [tTetrimino],
-    [oTetrimino]
+    iTetrimino,
+    jTetrimino,
+    lTetrimino,
+    sTetrimino,
+    zTetrimino,
+    tTetrimino,
+    oTetrimino
   ];
 
-  //pull a random tertrimino from the teriminos array
   let currentRotation = 0;
 
+  //pull a random tertrimino from the teriminos array
   let randomIndex = Math.floor(Math.random() * tetriminosArray.length);
   let currentTetrimino = tetriminosArray[randomIndex][currentRotation];
+  console.log("       current currentTetrimino", currentTetrimino);
+  let tetrominoColour = tetriminosArray[randomIndex][4];
 
   let position = Math.floor(width / 2) - 1;
-
-  const randomTetrimino = () => {
-    currentRotation = 0;
-    randomIndex = Math.floor(Math.random() * tetriminosArray.length);
-    currentTetrimino = tetriminosArray[randomIndex][0];
-  };
-
-  console.log("current Tet", currentTetrimino);
-  console.log("ranmdcom", currentTetrimino.matrix[0]);
 
   //will always spawn brick center of the top of the grid
   let spawnPoint = Math.floor(width / 2) - 1;
   console.log("spawn", spawnPoint);
 
   const generate = () => {
-    for (let i = 0; i < currentTetrimino.matrix[0].length; i++) {
-      squares[position + currentTetrimino.matrix[0][i]].classList.add("block");
-      // console.log(currentTetrimino.color);
+    currentTetrimino.forEach(index => {
+      squares[position + index].classList.add("block");
       //add classlist of colour
-      squares[position + currentTetrimino.matrix[0][i]].classList.add(currentTetrimino.color);
-    }
+      squares[position + index].classList.add(tetrominoColour);
+    });
   };
 
   const clear = () => {
-    for (let i = 0; i < currentTetrimino.matrix[0].length; i++) {
-      squares[position + currentTetrimino.matrix[0][i]].classList.remove("block");
-      // console.log(currentTetrimino.color);
-      //add classlist of colour
-      squares[position + currentTetrimino.matrix[0][i]].classList.remove(currentTetrimino.color);
-    }
+    currentTetrimino.forEach(index => {
+      squares[position + index].classList.remove("block");
+      //remove classlist of colour
+      squares[position + index].classList.remove(tetrominoColour);
+    });
   };
 
   generate();
 
-  //change this
+  //randomly select a tetrimino
+  const randomTetrimino = () => {
+    currentRotation = 0;
+    randomIndex = Math.floor(Math.random() * tetriminosArray.length);
+    currentTetrimino = tetriminosArray[randomIndex][currentRotation];
+    // tetrominoColour = tetriminosArray[randomIndex][1];
+    console.log("NEW", tetriminosArray[randomIndex]);
+  };
+
+  // console.log("ranmdcom", currentTetrimino[0]);
+
+  //change this to speed the fall rate
   let difficulty = 1000;
 
-  const gameloop = () => {
-    // gravity();
-    clear();
+  const gravity = () => {
     position += width;
+  };
+
+  const gameloop = () => {
+    clear();
+    gravity();
     generate();
     // console.log("loop", currentRotation);
     stopTetrimino();
-    gameOverCheck();
+    // gameOverCheck();
 
     setTimeout(gameloop, difficulty);
   };
 
+  // const gameloop = () => {
+  //   clear();
+  //   gravity()
+  //   generate();
+  //   // console.log("loop", currentRotation);
+  //   stopTetrimino();
+  //   gameOverCheck();
+
+  //   setTimeout(gameloop, difficulty);
+  // };
+
   //   gameloop();
 
-  console.log("matixtestos", currentTetrimino.matrix[currentRotation]);
+  console.log("matixtestos", currentTetrimino[currentRotation]);
 
   function stopTetrimino() {
     // if row beneath tetrimino has the class "the-floor" or 'freeze' freeze the tetrimino
     if (
-      currentTetrimino.matrix[0].some(
+      currentTetrimino.some(
         elem =>
           squares[position + elem + width].classList.contains("the-floor") ||
           squares[position + elem + width].classList.contains("freeze")
       )
     ) {
       // add freeze class
-      currentTetrimino.matrix[0].forEach(elem => squares[elem + position].classList.add("freeze"));
+      currentTetrimino.forEach(elem => squares[elem + position].classList.add("freeze"));
       // start a new tetromino falling
       position = Math.floor(width / 2) - 1;
       randomTetrimino();
+      tetrominoColour = tetriminosArray[randomIndex][4];
+      console.log("      new tetrimino with roation ", currentRotation);
       removeShake();
       //   console.log("new teromino has rotatin", currentRotation);
       updateScore();
+      gameOverCheck();
     }
   }
+  stopTetrimino();
 
   // console.log("toppp check", squares[0]);
 
-    function gameOverCheck() {
-      let topRow = squares.slice(0, 20)
-      if (topRow.some(elem => elem.classList.contains("freeze") === true)) {
-        console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
-        // gameoverAscii.classList.remove('hidden')
-        alert("Game over");
-      } else console.log("no")
-    }
-
-  // function gameOverCheck() {
-  //   //loops throgh top row if 'freeze' class spotted aleart user gameover
-  //   for (let i = 0; i < 20; i++) {
-  //     if (squares[i].classList.contains("freeze") === true) {
-  //       console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
-  //       // gameoverAscii.classList.remove('hidden')
-  //       alert("Game over");
-  //     }
-  //   }
-  // }
-
-  document.addEventListener("keydown", e => {
-    // let kCode = e.keyCode
-    if (e.keyCode === 37) {
-      console.log("moveLeft");
-      moveLeft();
-      movementAudio.play();
-    } else if (e.keyCode === 39) {
-      console.log("moveRight");
-      moveRight();
-      movementAudio.play();
-    } else if (e.keyCode === 40) {
-      console.log("moveDown");
-      moveDown();
-      movementAudio.play();
-    } else if (e.keyCode === 32) {
-      console.log("instantDown");
-      hardDrop();
-      movementAudio.play();
-    } else if (e.keyCode === 38) {
-      console.log("rotate90");
-      rotate90();
-      movementAudio.play();
-    }
-  });
+  function gameOverCheck() {
+    let topRow = squares.slice(0, 20);
+    if (topRow.some(elem => elem.classList.contains("freeze") === true)) {
+      console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
+      // gameoverAscii.classList.remove('hidden')
+      alert("Game over");
+    } else console.log("no");
+  }
 
   function moveLeft() {
     clear();
-    const isAtLeftEdge = currentTetrimino.matrix[0].some(index => (position + index) % width === 0);
+    const isAtLeftEdge = currentTetrimino.some(index => (position + index) % width === 0);
     if (!isAtLeftEdge) {
       position -= 1;
     }
-
-    if (
-      currentTetrimino.matrix[0].some(index =>
-        squares[position + index].classList.contains("block2")
-      )
-    ) {
+    if (currentTetrimino.some(index => squares[position + index].classList.contains("block2"))) {
       position += 1;
     }
     generate();
   }
 
-  const moveRight = () => {
+  function moveRight() {
     clear();
-    const isAtRightEdge = currentTetrimino.matrix[0].some(
-      index => (position + index) % width === width - 1
-    );
+    const isAtRightEdge = currentTetrimino.some(index => (position + index) % width === width - 1);
     if (!isAtRightEdge) {
       position += 1;
     }
-
-    if (
-      currentTetrimino.matrix[0].some(index =>
-        squares[position + index].classList.contains("freeze")
-      )
-    ) {
+    if (currentTetrimino.some(index => squares[position + index].classList.contains("freeze"))) {
       position -= 1;
     }
     generate();
-  };
+  }
 
-  // undraw()
-  //     currentRotation++
-  //     if (currentRotation === current.length) {
-  //         currentRotation = 0
-  //     }
-  //     current = theTetrominoes[random][currentRotation]
-  //     draw()
-
-  //===================current roation never goes to 0
-  const rotate90 = () => {
+  function rotate90() {
     clear();
     currentRotation++;
-    console.log("current rotation", currentRotation);
-    // if (currentRotation === currentTetrimino.matrix[0].length)
-    if (currentRotation === currentTetrimino.matrix[0].length) {
+    if (currentRotation === 4) {
       currentRotation = 0;
-      //   clear();
-      //   generate();
-      //   return;
     }
-    currentTetrimino.matrix[0] = currentTetrimino.matrix[currentRotation];
+    currentTetrimino = tetriminosArray[randomIndex][currentRotation];
     generate();
-  };
+  }
 
   const moveDown = () => {
     clear();
     if (
-      currentTetrimino.matrix[0].some(
+      currentTetrimino.some(
         elem =>
           squares[position + elem + width].classList.contains("the-floor") === true ||
           squares[position + elem + width].classList.contains("freeze") === true
