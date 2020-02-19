@@ -294,8 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let topRow = squares.slice(0, 20);
     if (topRow.some(elem => elem.classList.contains("freeze") === true)) {
       console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
-      // gameoverAscii.classList.remove('hidden')
-      alert("Game over");
+      gameoverAscii.classList.remove("hidden");
+      // alert("Game over");
     } else console.log("no");
   }
 
