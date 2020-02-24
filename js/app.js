@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bringInGame();
   });
 
-  const bringInGame = () => {
+  function bringInGame() {
     setTimeout(() => {
       mainElement.classList.remove("hidden");
       setTimeout(() => {
@@ -96,19 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1000);
       tetrisCountDown();
     }, 16000);
-  };
+  }
 
   const tetrisCountDown = () => {
     setTimeout(() => {
       gameloop();
     }, 6000);
   };
-
-  // const tetrisCountDown = () => {
-  //   setTimeout(() => {
-  //     gameloop();
-  //   }, 1);
-  // };
 
   const height = 20;
   const width = 10;
@@ -122,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tetrisBoard = document.querySelector(".tetris-board");
 
   //create arena on html
-  const drawArena = () => {
+  function drawArena() {
     tetrisBoard.innerHTML = "";
     for (let i = 0; i < tetrisArena.length; i++) {
       // console.log(tetrisArena[i]);
@@ -137,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
           tetrisBoard.innerHTML += `<div style="display:none" class='the-floor'></div>`;
         }
     }
-  };
+  }
   drawArena();
 
   let squares = Array.from(tetrisBoard.querySelectorAll("div"));
@@ -225,32 +219,32 @@ document.addEventListener("DOMContentLoaded", () => {
   let spawnPoint = Math.floor(width / 2) - 1;
   console.log("spawn", spawnPoint);
 
-  const generate = () => {
+  function generate() {
     currentTetrimino.forEach(index => {
       squares[position + index].classList.add("block");
       //add classlist of colour
       squares[position + index].classList.add(tetrominoColour);
     });
-  };
+  }
 
-  const clear = () => {
+  function clear() {
     currentTetrimino.forEach(index => {
       squares[position + index].classList.remove("block");
       //remove classlist of colour
       squares[position + index].classList.remove(tetrominoColour);
     });
-  };
+  }
 
   generate();
 
   //randomly select a tetrimino
-  const randomTetrimino = () => {
+  function randomTetrimino() {
     currentRotation = 0;
     randomIndex = Math.floor(Math.random() * tetriminosArray.length);
     currentTetrimino = tetriminosArray[randomIndex][currentRotation];
     // tetrominoColour = tetriminosArray[randomIndex][1];
     console.log("NEW", tetriminosArray[randomIndex]);
-  };
+  }
 
   // console.log("ranmdcom", currentTetrimino[0]);
 
@@ -261,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
     position += width;
   };
 
-  const gameloop = () => {
+  function gameloop() {
     clear();
     gravity();
     generate();
@@ -270,26 +264,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // gameOverCheck();
 
     gameStatus = setTimeout(gameloop, difficulty);
-  };
+  }
 
   function endGameloop() {
     clearTimeout(gameStatus);
     cowGameOver.classList.add("slide-in-left");
     console.log("new gamestts", gameStatus);
   }
-
-  // const gameloop = () => {
-  //   clear();
-  //   gravity()
-  //   generate();
-  //   // console.log("loop", currentRotation);
-  //   stopTetrimino();
-  //   gameOverCheck();
-
-  //   setTimeout(gameloop, difficulty);
-  // };
-
-  //   gameloop();
 
   console.log("matixtestos", currentTetrimino[currentRotation]);
 
@@ -329,16 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else console.log("no");
   }
 
-  // const bringInGame = () => {
-  //   setTimeout(() => {
-  //     mainElement.classList.remove("hidden");
-  //     setTimeout(() => {
-  //       gameDisplay.classList.add("fadeIn");
-  //     }, 1000);
-  //     tetrisCountDown();
-  //   }, 16000);
-  // };
-
   function moveLeft() {
     clear();
     const isAtLeftEdge = currentTetrimino.some(index => (position + index) % width === 0);
@@ -373,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
     generate();
   }
 
-  const moveDown = () => {
+  function moveDown() {
     clear();
     if (
       currentTetrimino.some(
@@ -388,26 +359,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // console.log("check", squares.slice(0, 20));
     generate();
     stopTetrimino();
-  };
+  }
 
-  const increaseDifficulty = () => {
+  function increaseDifficulty() {
     if (lines % 2 === 0) {
       difficulty /= 2;
       console.log("speed increased");
     }
-  };
+  }
 
-  const addShake = () => {
+  function addShake() {
     pointsDis.classList.add("shake");
     linesDis.classList.add("shake");
-  };
+  }
 
-  const removeShake = () => {
+  function removeShake() {
     pointsDis.classList.remove("shake");
     linesDis.classList.remove("shake");
-  };
+  }
 
-  const updateScore = () => {
+  function updateScore() {
     //create and array for each row in the game board
     for (positionId = 0; positionId < 199; positionId += width) {
       const row = [
@@ -449,5 +420,5 @@ document.addEventListener("DOMContentLoaded", () => {
         squares.forEach(cell => tetrisBoard.appendChild(cell));
       }
     }
-  };
+  }
 });
