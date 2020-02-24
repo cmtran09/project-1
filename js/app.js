@@ -5,17 +5,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const cowAscii = document.querySelector(".cow");
   const mainElement = document.querySelector("main");
   const gameDisplay = document.querySelector(".outermost");
+  const muteBtn = document.querySelector(".mute");
 
-  const gameoverAscii = document.querySelector("gameoverCowGraphic");
+  const gameoverAscii = document.querySelector(".gameoverCow");
+  const cowGameOver = document.querySelector(".gameoverCowGraphic");
 
   const tetrisAudio = document.querySelector(".tetrisAudio");
-  // tetrisAudio.src = "/sounds/TEtris sound.mp3";
+  tetrisAudio.src = "/sounds/TEtris sound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
-  // movementAudio.src = "/sounds/action.wav";
+  movementAudio.src = "/sounds/action.wav";
 
   let points = 0;
   let lines = 0;
+
+  const pointsDis = document.querySelector(".points p");
+  pointsDis.innerHTML = `${points}`;
+
+  console.log("TESTYYYY", pointsDis);
+
+  const linesDis = document.querySelector(".lines p");
+  linesDis.textContent = ` ${lines}`;
+
+  let gameStatus;
+
+  console.log("gamestatus", gameStatus);
 
   document.addEventListener("keydown", e => {
     // let kCode = e.keyCode
@@ -42,12 +56,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function toggleMute() {
+    console.log("toggleMute");
+    if (tetrisAudio.muted == false && movementAudio.muted == false) {
+      tetrisAudio.muted = true;
+      movementAudio.muted = true;
+    } else {
+      tetrisAudio.muted = false;
+      movementAudio.muted = false;
+    }
+  }
+
+  muteBtn.addEventListener("click", () => {
+    console.log("hi");
+    toggleMute();
+  });
+
   startYesBtn.addEventListener("click", () => {
     // welcomeCow.classList.add("colorChange");
     welcomeCow.classList.remove("slide-in-right");
     welcomeCow.classList.add("slide-out-bottom");
     terisAscii.classList.add("slide-l-r-Out");
     cowAscii.classList.add("colourChange");
+    // muteBtn.classList.remove("hidden");
+    muteBtn.classList.add("fadeIn");
     console.log("added");
     //PLAY TETRIS MUSIC
     setTimeout(() => {
@@ -56,36 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
     bringInGame();
   });
 
-  // const bringInGame = () => {
-  //   setTimeout(() => {
-  //     mainElement.classList.remove("hidden");
-  //     setTimeout(() => {
-  //       gameDisplay.classList.add("fadeIn");
-  //     }, 1000);
-  //     tetrisCountDown();
-  //   }, 16000);
-  // };
-
-  // const tetrisCountDown = () => {
-  //   setTimeout(() => {
-  //     gameloop();
-  //   }, 6000);
-  // };
   const bringInGame = () => {
     setTimeout(() => {
       mainElement.classList.remove("hidden");
       setTimeout(() => {
         gameDisplay.classList.add("fadeIn");
-      }, 1);
+      }, 1000);
       tetrisCountDown();
-    }, 1);
+    }, 16000);
   };
 
   const tetrisCountDown = () => {
     setTimeout(() => {
       gameloop();
-    }, 1);
+    }, 6000);
   };
+
+  // const tetrisCountDown = () => {
+  //   setTimeout(() => {
+  //     gameloop();
+  //   }, 1);
+  // };
 
   const height = 20;
   const width = 10;
@@ -246,8 +269,14 @@ document.addEventListener("DOMContentLoaded", () => {
     stopTetrimino();
     // gameOverCheck();
 
-    setTimeout(gameloop, difficulty);
+    gameStatus = setTimeout(gameloop, difficulty);
   };
+
+  function endGameloop() {
+    clearTimeout(gameStatus);
+    cowGameOver.classList.add("slide-in-left");
+    console.log("new gamestts", gameStatus);
+  }
 
   // const gameloop = () => {
   //   clear();
@@ -295,9 +324,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (topRow.some(elem => elem.classList.contains("freeze") === true)) {
       console.log("LLLLLLOPOOOOOOOSSSSSSEEEEEEEE");
       gameoverAscii.classList.remove("hidden");
+      endGameloop();
       // alert("Game over");
     } else console.log("no");
   }
+
+  // const bringInGame = () => {
+  //   setTimeout(() => {
+  //     mainElement.classList.remove("hidden");
+  //     setTimeout(() => {
+  //       gameDisplay.classList.add("fadeIn");
+  //     }, 1000);
+  //     tetrisCountDown();
+  //   }, 16000);
+  // };
 
   function moveLeft() {
     clear();
@@ -349,14 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
     generate();
     stopTetrimino();
   };
-
-  const pointsDis = document.querySelector(".points p");
-  pointsDis.innerHTML = `${points}`;
-
-  console.log("TESTYYYY", pointsDis);
-
-  const linesDis = document.querySelector(".lines p");
-  linesDis.textContent = ` ${lines}`;
 
   const increaseDifficulty = () => {
     if (lines % 2 === 0) {

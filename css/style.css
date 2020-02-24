@@ -7,6 +7,29 @@
 main {
 }
 
+.mute {
+  position: absolute;
+  z-index: 200000;
+  left: 10px;
+  top: 650px;
+
+  opacity: 0;
+  transition: all 1s ease-in 1s;
+
+  margin: 2px 2px 2px 0;
+  float: right;
+  width: 200px;
+  height: 30px;
+  background: #c0c0c0;
+  border-width: 1px;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 0;
+  font-size: 9px;
+  font-weight: bold;
+  font-family: Tahoma;
+  text-align: center;
+}
+
 .outermost {
   display: flex;
   opacity: 0;
@@ -73,8 +96,8 @@ p {
 
 .gameWrapper {
   position: absolute;
-  left: -9px;
-  right: 0;
+  left: 0px;
+  right: 0px;
   margin-left: auto;
   margin-right: auto;
   width: 200px;
@@ -193,6 +216,61 @@ p {
     opacity: 1;
   }
 }
+.slide-in-left {
+  -webkit-animation: slide-in-left 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-left 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation-delay: 1s;
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.gameoverCow {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: ;
+  height: 4000px;
+  transition: background 2s ease;
+  position: relative;
+  top: 10px;
+  z-index: 100;
+  top: -1280px;
+}
+
+.gameoverCowGraphic {
+  background: linear-gradient(
+    164deg,
+    rgba(180, 0, 6, 1) 0%,
+    rgba(107, 100, 10, 1) 45%,
+    rgba(17, 158, 7, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .cow {
   font-family: "Ubuntu", sans-serif;
@@ -234,7 +312,7 @@ p {
   line-height: px;
   text-align: center;
   vertical-align: middle;
-  focus: none;
+  z-index: 10000;
 }
 
 .begin-buttons button {
@@ -253,7 +331,7 @@ p {
   font-weight: bold;
   font-family: Tahoma;
   text-align: center;
-  focus: none;
+  z-index: 10000;
 }
 
 .slide-out-bottom {
@@ -299,7 +377,8 @@ p {
   overflow: none;
   /* z-index: -10; */
   top: -10px;
-  left: 1600px;
+  left: 1800px;
+  /* left: 1600px; */
 }
 
 .slide-l-r-Out {
@@ -354,12 +433,51 @@ p {
   display: none;
 }
 
-.gameoverCow {
-  font-family: "Ubuntu", sans-serif;
-  font-size: 40px;
+.restart-buttons button {
+  margin: 2px 2px 2px 0;
+  width: 200px;
+  height: 30px;
+  background: #c0c0c0;
+  border-width: 1px;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  padding: 0;
+  font-size: 9px;
   font-weight: bold;
-  background-color: ;
-  transition: background 2s ease;
+  font-family: Tahoma;
+  text-align: center;
+  z-index: 10000;
   position: absolute;
-  top: 10px;
+  top: 690px;
+  left: 1000px;
+}
+
+#restart-game {
+  position: absolute;
+  top: 690px;
+  left: 780px;
+}
+
+.fadeInBtn {
+  -webkit-animation-name: fadeInBtn;
+  animation-name: fadeInBtn;
+}
+
+@-webkit-keyframes fadeInBtn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInBtn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
