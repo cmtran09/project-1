@@ -9,6 +9,8 @@ This was my first project from General Assembly’s Software Engineering Immersi
 
 ![Tetris Clone](images/tetris&#32;gif&#32;640px&#32;low.gif)
 
+<img align="center" src="https://github.com/cmtran09/project-1-vanillaJS-tetris/blob/development/images/tetris%20gif%20640px%20low.gif?raw=true" />
+
 You can launch the game on [GitHub Pages](https://cmtran09.github.io/project-1-vanillaJS-tetris/), or check out the [Repo](https://github.com/cmtran09/project-1-vanillaJS-tetris).
 
 ## Brief
