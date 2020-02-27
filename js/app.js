@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   tetrisAudio.src = "/project-1-vanillaJS-tetris/sounds/TEtris sound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
-  movementAudio.src = "/project-1-vanillaJS-tetris/sounds/action.wav";
+  movementAudio.src = "/project-1-vanillaJS-tetris/sound/action.wav";
 
   let points = 0;
   let lines = 0;
