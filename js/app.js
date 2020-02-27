@@ -11,10 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const cowGameOver = document.querySelector(".gameoverCowGraphic");
 
   const tetrisAudio = document.querySelector(".tetrisAudio");
-  tetrisAudio.src = "/sounds/TEtris sound.mp3";
+  tetrisAudio.src =
+    "https://raw.githubusercontent.com/cmtran09/project-1-vanillaJS-tetris/master/sounds/TEtris%20sound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
-  movementAudio.src = "/sounds/action.wav";
+  movementAudio.src =
+    "https://raw.githubusercontent.com/cmtran09/project-1-vanillaJS-tetris/master/sounds/action.wav";
 
   let points = 0;
   let lines = 0;
