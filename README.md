@@ -6,7 +6,8 @@ Tetris is a puzzle game originally designed by Alexey Pajitnov and was released 
 
 This was my first project from General Assembly’s Software Engineering Immersive Course. It was an individual project where I decided to create a clone of Tetris using purely Vanilla Javascript, HTML5 and CSS3 in a week. 
 
-![Tetris Clone](images/tetris&#32;gif&#32;480px&#32;low.gif)
+
+![Tetris Clone](images/tetris&#32;gif&#32;640px&#32;low.gif)
 
 You can launch the game on [GitHub Pages](https://cmtran09.github.io/project-1-vanillaJS-tetris/), or check out the [Repo](https://github.com/cmtran09/project-1-vanillaJS-tetris).
 
