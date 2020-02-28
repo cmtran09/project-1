@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const cowGameOver = document.querySelector(".gameoverCowGraphic");
 
   const tetrisAudio = document.querySelector(".tetrisAudio");
-  tetrisAudio.src = "/sounds/TEtrisSound.mp3";
+  tetrisAudio.src = "/project-1-vanillaJS-tetris/sounds/TEtrisSound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
-  movementAudio.src = "/sounds/action.wav";
+  movementAudio.src = "/project-1-vanillaJS-tetris/sounds/action.wav";
 
   let points = 0;
   let lines = 0;
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 6000);
   };
 
-  const height = 20;
-  const width = 10;
+  let height = 20;
+  let width = 10;
 
   //  create an array grid with height and witdth, each cell with the value 0
   const tetrisArena = [...Array(height)].map(() => Array(width).fill(0));
@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isAtLeftEdge) {
       position -= 1;
     }
-    if (currentTetrimino.some(index => squares[position + index].classList.contains("block2"))) {
+    if (currentTetrimino.some(index => squares[position + index].classList.contains("freeze"))) {
       position += 1;
     }
     generate();
@@ -417,7 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
         //splice array that have all the elements with the a class freeze and add another clear row, then bring everything down
         const squaresRemoved = squares.splice(positionId, width);
         squares = squaresRemoved.concat(squares);
-        squares.forEach(cell => tetrisBoard.appendChild(cell));
+        squares.forEach(elem => tetrisBoard.appendChild(elem));
       }
     }
   }
