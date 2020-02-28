@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cowGameOver = document.querySelector(".gameoverCowGraphic");
 
   const tetrisAudio = document.querySelector(".tetrisAudio");
-  tetrisAudio.src = "/sounds/TEtris sound.mp3";
+  tetrisAudio.src = "/sounds/TEtrisSound.mp3";
 
   const movementAudio = document.querySelector(".movementAudio");
   movementAudio.src = "/sounds/action.wav";
